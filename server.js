@@ -13,22 +13,35 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const accountSid = process.env.SID;
 const authToken = process.env.TOKEN;
 
-// const client = require('twilio')(accountSid, authToken);
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const client = require('twilio')(accountSid, authToken);
+
+
 
 
 let phoneNumber = ""
 
 // Send Message
-function sendMessage() {
-    client.messages
+// function sendMessage() {
+//     client.messages
+//     .create({
+//         body: 'Pick your available time',
+//         from: '+19292055493',
+//         to: phoneNumber
+//     })
+//     .then(message => console.log(message.sid));
+// }
+
+app.post('/send', (req, res) => {
+  var newPhone = req.body
+  client.messages
     .create({
         body: 'Pick your available time',
-        from: '+19292055493',
+        from: '+' + newPhone,
         to: phoneNumber
     })
     .then(message => console.log(message.sid));
-}
+
+});
 
 // Default
 app.get("/", (req, res) => {
@@ -37,6 +50,7 @@ app.get("/", (req, res) => {
 
 // Receive Message
   app.post('/sms', (req, res) => {
+    const MessagingResponse = require('twilio').twiml.MessagingResponse;
     const twiml = new MessagingResponse();
 
     if (req.body.Body === "Test") {
