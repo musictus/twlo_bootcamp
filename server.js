@@ -1,13 +1,15 @@
 // Dependencies
 const express = require("express");
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const http = require('http');
 var path = require("path");
 require('dotenv').config()
 
 // Initialize Express
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }))
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Creds
 const accountSid = "ACb9b51d3506052f5753d241c17b5c1ddb";
@@ -21,7 +23,7 @@ let phoneNumber = ""
 app.post('/', (req, res) => {
 
   var newPhone = req.body;
-  console.log(newPhone);
+  console.log("newPhone Testing", newPhone)
   res.json(newPhone);
 
   client.messages
