@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Twilio Bootcamp App</title>
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
   <body>
         <div class="jumbotron">
@@ -44,7 +44,7 @@
           console.log("new number", newPhone)
     
           // QUESTION: What does $.get do? What are the parameters it is expecting?
-          $.post("/", newPhone)
+          $.post("/send", newPhone)
             .then(function(data) {
             console.log("index.html", data);
             alert("Sending Text!");
