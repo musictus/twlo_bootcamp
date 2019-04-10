@@ -31,9 +31,9 @@ app.post('/', (req, res) => {
 
   client.messages
     .create({
-        body: 'Pick your available time',
-        from: '+1' + newPhone,
-        to: phoneNumber
+        body: 'Pick a color: Red, Blue, Green',
+        from: '+19292055493',
+        to: '+1' + newPhone
     })
     .then(message => console.log(message.sid));
 });
