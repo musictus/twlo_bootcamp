@@ -43,12 +43,16 @@ app.post('/', (req, res) => {
   app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
 
-    if (req.body.Body === "Test") {
-      twiml.message('Stop testing!');
+    if (req.body.Body === "Red") {
+      twiml.message('Color Red!');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
-    } else if (req.body.Body === "Food") {
-      twiml.message('Eat some more!');
+    } else if (req.body.Body === "Blue") {
+      twiml.message('Color Blue!');
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+      res.end(twiml.toString());
+    } else if (req.body.Body === "Green") {
+      twiml.message('Color Green!');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     }
