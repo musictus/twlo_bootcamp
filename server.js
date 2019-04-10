@@ -45,14 +45,17 @@ app.post('/', (req, res) => {
 
     if (req.body.Body === "Red") {
       twiml.message('Color Red!');
+      message.media('https://www.colorcombos.com/images/colors/FF0000.png');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     } else if (req.body.Body === "Blue") {
       twiml.message('Color Blue!');
+      message.media('https://www.colorcombos.com/images/colors/336699.png');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     } else if (req.body.Body === "Green") {
       twiml.message('Color Green!');
+      message.media('https://www.colorcombos.com/images/colors/00FF00.png');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     }
