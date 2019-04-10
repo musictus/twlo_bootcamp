@@ -32,12 +32,13 @@ app.get("/", (req, res) => {
 
 // Receive Message
   app.post('/sms', (req, res) => {
-    const twiml = new MessagingResponse();
     if (req === "test") {
+      let twiml = new MessagingResponse();
       twiml.message('Stop testing now');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     } else if (req === "food") {
+      let twiml = new MessagingResponse();
       twiml.message('Start eating now');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
