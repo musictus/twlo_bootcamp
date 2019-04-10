@@ -18,9 +18,12 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 let phoneNumber = ""
 
-app.post('/send', (req, res) => {
-  var newPhone = req.body
+app.post('/', (req, res) => {
+
+  var newPhone = req.body;
   console.log(newPhone);
+  res.json(newPhone);
+
   client.messages
     .create({
         body: 'Pick your available time',
