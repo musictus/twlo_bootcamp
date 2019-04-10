@@ -37,12 +37,12 @@
         // QUESTION: What is this code doing?
         $("#button-click").on("click", function(event) {
             event.preventDefault();
-            let inputPhone = $("#exampleInputPhone").val().trim();
+            const inputPhone = $("#exampleInputPhone").val().trim();
             console.log("original number", inputPhone)
     
           // Remove () and - and white spaces from phone number 
-          let newPhone = inputPhone.replace(/[^\d]/g, '');
-          console.log("new number", newPhone)
+          const newPhone = inputPhone.replace(/[^\d]/g, '');
+          console.log("new number", newPhone);
     
           // QUESTION: What does $.get do? What are the parameters it is expecting?
           $.post("/", newPhone)

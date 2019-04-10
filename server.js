@@ -18,13 +18,16 @@ const authToken = "a0d77a5916471b90fa753b200c861770";
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-let phoneNumber = ""
+// Default
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));;
+});
 
 app.post('/', (req, res) => {
 
-  var newPhone = req.body;
+  var newPhone = JSON.stringify(req.body);
   console.log("newPhone Testing", newPhone)
-  res.json(newPhone);
+  // res.json(newPhone);
 
   client.messages
     .create({
@@ -33,11 +36,6 @@ app.post('/', (req, res) => {
         to: phoneNumber
     })
     .then(message => console.log(message.sid));
-});
-
-// Default
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));;
 });
 
 // Receive Message
