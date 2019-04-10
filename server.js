@@ -16,32 +16,18 @@ const authToken = "a0d77a5916471b90fa753b200c861770";
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-
-
-
 let phoneNumber = ""
-
-// Send Message
-// function sendMessage() {
-//     client.messages
-//     .create({
-//         body: 'Pick your available time',
-//         from: '+19292055493',
-//         to: phoneNumber
-//     })
-//     .then(message => console.log(message.sid));
-// }
 
 app.post('/send', (req, res) => {
   var newPhone = req.body
+  console.log(newPhone);
   client.messages
     .create({
         body: 'Pick your available time',
-        from: '+' + newPhone,
+        from: '+1' + newPhone,
         to: phoneNumber
     })
     .then(message => console.log(message.sid));
-
 });
 
 // Default
