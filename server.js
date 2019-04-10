@@ -25,9 +25,9 @@ app.get("/", (req, res) => {
 
 app.post('/', (req, res) => {
 
-  var newPhone = JSON.stringify(req.body);
+  var newPhone = req.body;
   console.log("newPhone Testing", newPhone)
-  // res.json(newPhone);
+  res.json(newPhone);
 
   client.messages
     .create({

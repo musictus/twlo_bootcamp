@@ -45,7 +45,7 @@
           console.log("new number", newPhone);
     
           // QUESTION: What does $.get do? What are the parameters it is expecting?
-          $.post("/", newPhone)
+          $.post("/", {'number': newPhone})
             .then(function(data) {
             console.log(data);
             alert("Sending Text!");
