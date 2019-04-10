@@ -23,6 +23,10 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 //     .then(message => console.log(message.sid));
 // }
 
+// Default
+app.get("/", (req, res) => {
+  res.end("HOMEPAGE");
+});
 
 // Receive Message
   app.post('/sms', (req, res) => {
@@ -34,6 +38,9 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
     res.end(twiml.toString());
   });
   
-  http.createServer(app).listen(1337, () => {
+
+  const PORT = process.env.PORT || 3000;
+
+  http.createServer(app).listen(PORT, () => {
     console.log('Express server listening on port 1337');
   });
