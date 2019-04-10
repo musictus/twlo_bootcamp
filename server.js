@@ -18,7 +18,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 let phoneNumber = ""
 
-app.post('/send', (req, res) => {
+app.post('/', (req, res) => {
   var newPhone = req.body
   console.log(newPhone);
   client.messages
