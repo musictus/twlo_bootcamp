@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const accountSid = process.env.SID;
 const authToken = process.env.TOKEN;
 
-const client = require('twilio')(accountSid, authToken);
+// const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 
