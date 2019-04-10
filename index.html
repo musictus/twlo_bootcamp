@@ -34,9 +34,10 @@
     <!-- Optional JavaScript -->
     <script type="text/javascript">
         // QUESTION: What is this code doing?
-        $("#button-click").on("click", function() {
-          let inputPhone = $("#exampleInputPhone").val().trim();
-          console.log("original number", inputPhone)
+        $("#button-click").on("click", function(event) {
+            event.preventDefault();
+            let inputPhone = $("#exampleInputPhone").val().trim();
+            console.log("original number", inputPhone)
     
           // Remove () and - and white spaces from phone number 
           let newPhone = inputPhone.replace(/[^\d]/g, '');
