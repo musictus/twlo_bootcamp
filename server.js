@@ -13,20 +13,20 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const accountSid = process.env.SID;
 const authToken = process.env.TOKEN;
 
-const client = require('twilio')(accountSid, authToken);
+// const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 
 // Send Message
-function sendMessage() {
-    client.messages
-    .create({
-        body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-        from: '+19292055493',
-        to: '+16468317059'
-    })
-    .then(message => console.log(message.sid));
-}
+// function sendMessage() {
+//     client.messages
+//     .create({
+//         body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+//         from: '+19292055493',
+//         to: '+16468317059'
+//     })
+//     .then(message => console.log(message.sid));
+// }
 
 // Default
 app.get("/", (req, res) => {
