@@ -1,10 +1,12 @@
 // Dependencies
 const express = require("express");
+const bodyParser = require('body-parser')
 const http = require('http');
 require('dotenv').config()
 
 // Initialize Express
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Creds
 const accountSid = process.env.SID;
