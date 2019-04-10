@@ -25,15 +25,16 @@ app.get("/", (req, res) => {
 
 app.post('/', (req, res) => {
 
-  var newPhone = req.body;
-  console.log("newPhone Testing", newPhone)
-  res.json(newPhone);
+  let newPhone = req.body;
+  let theNumber = newPhone.number
+  console.log("FINALLLLLL", theNumber)
+  res.json(theNumber);
 
   client.messages
     .create({
         body: 'Pick a color: Red, Blue, Green',
         from: '+19292055493',
-        to: '+1' + newPhone
+        to: '+1' + theNumber
     })
     .then(message => console.log(message.sid));
 });
