@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Creds
-const accountSid = "ACb9b51d3506052f5753d241c17b5c1ddb";
-const authToken = "a0d77a5916471b90fa753b200c861770";
+const accountSid = process.env.SID;
+const authToken = process.env.TOKEN;
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
