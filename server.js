@@ -46,11 +46,14 @@ app.post('/', (req, res) => {
     const message = twiml.message();
     
     const textResponse = req.body.Body;
+    console.log("before: ", textResponse)
     const stock = textResponse.trim().toLowerCase();
+    console.log("after: ", stock)
     const url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
     axios.get(url).then(
       res => {
+        console.log("testing", res.data)
         message.body(
           res.data.companyName + 
           "\nLatest Price: " + res.data.latestPrice +
