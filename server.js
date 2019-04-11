@@ -40,45 +40,24 @@ app.post('/', (req, res) => {
     .then(message => console.log(message.sid));
 });
 
+let stock = ""
+let url = ""
+let stockQuote = ""
+
 // Receive Message
   app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
     
     const textResponse = req.body.Body;
-    console.log("before: ", textResponse)
-    const stock = textResponse.trim().toLowerCase();
-    console.log("after: ", stock)
-    const url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
+    // console.log("before: ", textResponse)
+    stock = textResponse.trim().toLowerCase();
+    // console.log("after: ", stock)
+    url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
-    axios.get(url).then(
-      response => {
-        console.log("testing", response.data)
-        console.log("testing one", response.data.latestPrice)
-
-        twiml.message(
-          response.data.companyName + 
-          "\nLatest Price: " + response.data.latestPrice +
-          "\nToday's High: " + response.data.high +
-          "\nToday's Low: " + response.data.low +
-          "\nExtendedPrice: " + response.data.extendedPrice +
-          "\n\nMarket Cap: " + response.data.marketCap +
-          "\nPE Ratio: " + response.data.peRatio +
-          "\n52 Weeks High: " + response.data.week52High +
-          "\n52 Weeks Low: " + response.data.week52Low +
-          "\nYear to Date Change: " + response.data.ytdChange
-        );
-
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(twiml.toString());
-
-      }
-    ).catch(err => {
-      console.log(err);
-      // In case of an error, let the client know as well.
-      res.status(500).send(err);
-    });
-
+    message.body(stockQuote);
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
 
 
 
@@ -103,6 +82,35 @@ app.post('/', (req, res) => {
     // }
   
   });
+
+  function runStockApi() {
+
+    axios.get(url).then(
+      response => {
+        // console.log("testing", response.data)
+        // console.log("testing one", response.data.latestPrice)
+  
+        stockQuote = 
+          response.data.companyName + 
+          "Latest Price: " + response.data.latestPrice
+          "Today's High: " + response.data.high
+          "Today's Low: " + response.data.low
+          "ExtendedPrice: " + response.data.extendedPrice
+          "Market Cap: " + response.data.marketCap
+          "PE Ratio: " + response.data.peRatio
+          "52 Weeks High: " + response.data.week52High
+          "52 Weeks Low: " + response.data.week52Low
+          "Year to Date Change: " + response.data.ytdChange;
+  
+      }
+    ).catch(err => {
+      console.log(err);
+      // In case of an error, let the client know as well.
+      res.status(500).send(err);
+    });
+
+  }
+  
   
 
   const PORT = process.env.PORT || 1337;
