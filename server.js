@@ -76,6 +76,7 @@ app.post('/', (req, res) => {
           "\nYear to Date Change: " + response.data.ytdChange;
         
           message.body(stockQuote);
+          console.log("quote", stockQuote)
       }
     ).catch(err => {
       console.log(err);
