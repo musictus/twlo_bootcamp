@@ -54,7 +54,8 @@ app.post('/', (req, res) => {
     axios.get(url).then(
       res => {
         console.log("testing", res.data)
-        message.body(
+        console.log("testing one", res.data.latestPrice)
+        twiml.message(
           res.data.companyName + 
           "\nLatest Price: " + res.data.latestPrice +
           "\nToday's High: " + res.data.high +
