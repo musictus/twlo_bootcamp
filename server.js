@@ -40,9 +40,9 @@ app.post('/', (req, res) => {
     .then(message => console.log(message.sid));
 });
 
-let stock = ""
-let url = ""
-let stockQuote = ""
+const stock = ""
+const url = ""
+const stockQuote = ""
 
 // Receive Message
   app.post('/sms', (req, res) => {
@@ -56,6 +56,7 @@ let stockQuote = ""
     url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
     message.body(stockQuote);
+    runStockApi()
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
 
