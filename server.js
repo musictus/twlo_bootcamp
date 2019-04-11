@@ -73,7 +73,11 @@ app.post('/', (req, res) => {
         res.end(twiml.toString());
 
       }
-    );
+    ).catch(err => {
+      console.log(err);
+      // In case of an error, let the client know as well.
+      res.status(500).send(err);
+    });
 
 
 
