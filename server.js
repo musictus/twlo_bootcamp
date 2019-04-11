@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
     
     // let stock = ""
     // let url = ""
-    // let stockQuote = ""
+    let stockQuote = ""
     
     const textResponse = req.body.Body;
     // console.log("before: ", textResponse)
@@ -63,7 +63,7 @@ app.post('/', (req, res) => {
         // console.log("testing", response.data)
         // console.log("testing one", response.data.latestPrice)
   
-         const stockQuote = 
+        stockQuote = 
           response.data.companyName + 
           "\nLatest Price: " + response.data.latestPrice +
           "\nToday's High: " + response.data.high +
@@ -83,6 +83,7 @@ app.post('/', (req, res) => {
       res.status(500).send(err);
     });
 
+    message.body(stockQuote);
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
 
