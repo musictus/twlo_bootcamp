@@ -40,20 +40,47 @@ app.post('/', (req, res) => {
     .then(message => console.log(message.sid));
 });
 
-let stock = ""
-let url = ""
-let stockQuote = ""
+
 
 // Receive Message
   app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
     
+    let stock = ""
+    let url = ""
+    let stockQuote = ""
+    
     const textResponse = req.body.Body;
     // console.log("before: ", textResponse)
     stock = textResponse.trim().toLowerCase();
     // console.log("after: ", stock)
     url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
+
+
+    axios.get(url).then(
+      response => {
+        // console.log("testing", response.data)
+        // console.log("testing one", response.data.latestPrice)
+  
+        stockQuote = 
+          response.data.companyName + 
+          "\nLatest Price: " + response.data.latestPrice +
+          "\nToday's High: " + response.data.high +
+          "\nToday's Low: " + response.data.low +
+          "\nExtendedPrice: " + response.data.extendedPrice +
+          "\nMarket Cap: " + response.data.marketCap +
+          "\nPE Ratio: " + response.data.peRatio +
+          "\n52 Weeks High: " + response.data.week52High +
+          "\n52 Weeks Low: " + response.data.week52Low +
+          "\nYear to Date Change: " + response.data.ytdChange;
+  
+      }
+    ).catch(err => {
+      console.log(err);
+      // In case of an error, let the client know as well.
+      res.status(500).send(err);
+    });
 
     message.body(stockQuote);
     runStockApi()
@@ -84,33 +111,33 @@ let stockQuote = ""
   
   });
 
-  function runStockApi() {
+  // function runStockApi() {
 
-    axios.get(url).then(
-      response => {
-        console.log("testing", response.data)
-        // console.log("testing one", response.data.latestPrice)
+  //   axios.get(url).then(
+  //     response => {
+  //       // console.log("testing", response.data)
+  //       // console.log("testing one", response.data.latestPrice)
   
-        stockQuote = 
-          response.data.companyName + 
-          "\nLatest Price: " + response.data.latestPrice +
-          "\nToday's High: " + response.data.high +
-          "\nToday's Low: " + response.data.low +
-          "\nExtendedPrice: " + response.data.extendedPrice +
-          "\nMarket Cap: " + response.data.marketCap +
-          "\nPE Ratio: " + response.data.peRatio +
-          "\n52 Weeks High: " + response.data.week52High +
-          "\n52 Weeks Low: " + response.data.week52Low +
-          "\nYear to Date Change: " + response.data.ytdChange;
+  //       stockQuote = 
+  //         response.data.companyName + 
+  //         "\nLatest Price: " + response.data.latestPrice +
+  //         "\nToday's High: " + response.data.high +
+  //         "\nToday's Low: " + response.data.low +
+  //         "\nExtendedPrice: " + response.data.extendedPrice +
+  //         "\nMarket Cap: " + response.data.marketCap +
+  //         "\nPE Ratio: " + response.data.peRatio +
+  //         "\n52 Weeks High: " + response.data.week52High +
+  //         "\n52 Weeks Low: " + response.data.week52Low +
+  //         "\nYear to Date Change: " + response.data.ytdChange;
   
-      }
-    ).catch(err => {
-      console.log(err);
-      // In case of an error, let the client know as well.
-      res.status(500).send(err);
-    });
+  //     }
+  //   ).catch(err => {
+  //     console.log(err);
+  //     // In case of an error, let the client know as well.
+  //     res.status(500).send(err);
+  //   });
 
-  }
+  // }
   
   
 
