@@ -44,19 +44,19 @@ app.post('/', (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
 
-    if (req.body.Body === "Red") {
+    if (req.body.Body === "Red" || "red") {
       // twiml.message('Color Red!');
       message.body('Color Red!');
-      message.media('https://www.adorama.com/images/Large/ro25.jpg');
+      message.media('https://www.colorcombos.com/images/colors/FF0000');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
-    } else if (req.body.Body === "Blue") {
+    } else if (req.body.Body === "Blue" || "blue") {
       // twiml.message('Color Blue!');
       message.body('Color Blue!');
-      message.media('https://i.pinimg.com/originals/1a/85/9a/1a859ac7f7e52ecc292ed581baaf300e.jpg');
+      message.media('https://www.colorcombos.com/images/colors/336699');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
-    } else if (req.body.Body === "Green") {
+    } else if (req.body.Body === "Green" || "green") {
       // twiml.message('Color Green!');
       message.body('Color Green!');
       message.media('https://www.colorcombos.com/images/colors/5BC236.png');
