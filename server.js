@@ -46,24 +46,16 @@ app.post('/', (req, res) => {
   app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
-    
-    // let stock = ""
-    // let url = ""
-    var stockQuote = ""
-    
     const textResponse = req.body.Body;
-    // console.log("before: ", textResponse)
     const stock = textResponse.trim().toLowerCase();
-    // console.log("after: ", stock)
     const url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
-
 
     axios.get(url).then(
       response => {
         // console.log("testing", response.data)
         // console.log("testing one", response.data.latestPrice)
   
-        stockQuote = 
+        const stockQuote = 
           response.data.companyName + 
           "\nLatest Price: " + response.data.latestPrice +
           "\nToday's High: " + response.data.high +
@@ -74,19 +66,17 @@ app.post('/', (req, res) => {
           "\n52 Weeks High: " + response.data.week52High +
           "\n52 Weeks Low: " + response.data.week52Low +
           "\nYear to Date Change: " + response.data.ytdChange;
-        
-          // message.body(stockQuote);
-          console.log("quote", stockQuote)
+          
+          message.body(stockQuote);
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+  
       }
     ).catch(err => {
       console.log(err);
       // In case of an error, let the client know as well.
       res.status(500).send(err);
     });
-
-    message.body(stockQuote);
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
 
 
 
