@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
     
     // let stock = ""
     // let url = ""
-    const stockQuote = ""
+    var stockQuote = ""
     
     const textResponse = req.body.Body;
     // console.log("before: ", textResponse)
