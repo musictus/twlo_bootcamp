@@ -40,9 +40,9 @@ app.post('/', (req, res) => {
     .then(message => console.log(message.sid));
 });
 
-const stock = ""
-const url = ""
-const stockQuote = ""
+let stock = ""
+let url = ""
+let stockQuote = ""
 
 // Receive Message
   app.post('/sms', (req, res) => {
@@ -88,7 +88,7 @@ const stockQuote = ""
 
     axios.get(url).then(
       response => {
-        // console.log("testing", response.data)
+        console.log("testing", response.data)
         // console.log("testing one", response.data.latestPrice)
   
         stockQuote = 
