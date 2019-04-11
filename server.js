@@ -2,7 +2,8 @@
 const express = require("express");
 // const bodyParser = require('body-parser')
 const http = require('http');
-var path = require("path");
+const axios = require("axios");
+const path = require("path");
 require('dotenv').config()
 
 // Initialize Express
@@ -12,8 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Creds
-const accountSid = process.env.SID;
-const authToken = process.env.TOKEN;
+const accountSid = "ACb9b51d3506052f5753d241c17b5c1ddb";
+const authToken = "a0d77a5916471b90fa753b200c861770";
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -32,7 +33,7 @@ app.post('/', (req, res) => {
 
   client.messages
     .create({
-        body: 'Pick a color: Red, Blue, Green',
+        body: 'Text your stock symbol (i.e. AAPL or aapl)',
         from: '+19292055493',
         to: '+1' + theNumber
     })
@@ -43,26 +44,50 @@ app.post('/', (req, res) => {
   app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
+    
+    const textResponse = req.body.Body;
+    const stock = textResponse.trim().toLowerCase();
+    const url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
-    if (req.body.Body === "Red" || "red") {
-      // twiml.message('Color Red!');
-      message.body('Color Red!');
-      message.media('https://www.colorcombos.com/images/colors/FF0000.png');
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
-    } else if (req.body.Body === "Blue" || "blue") {
-      // twiml.message('Color Blue!');
-      message.body('Color Blue!');
-      message.media('https://www.colorcombos.com/images/colors/336699.png');
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
-    } else if (req.body.Body === "Green" || "green") {
-      // twiml.message('Color Green!');
-      message.body('Color Green!');
-      message.media('https://www.colorcombos.com/images/colors/5BC236.png');
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
-    }
+    axios.get(url).then(
+      res => {
+        message.body(
+          res.companyName + 
+          "\nLatest Price: " + res.latestPrice +
+          "\nToday's High: " + res.high +
+          "\nToday's Low: " + res.low +
+          "\nExtendedPrice: " + res.extendedPrice +
+          "\n\nMarket Cap: " + res.marketCap +
+          "\nPE Ratio: " + res.peRatio +
+          "\n52 Weeks High: " + res.week52High +
+          "\n52 Weeks Low: " + res.week52Low +
+          "\nYear to Date Change: " + res.ytdChange
+          );
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(twiml.toString());
+      }
+    );
+
+
+    // if (req.body.Body === "Red" || "red") {
+    //   // twiml.message('Color Red!');
+    //   message.body('Color Red!');
+    //   message.media('https://www.colorcombos.com/images/colors/FF0000.png');
+    //   res.writeHead(200, {'Content-Type': 'text/xml'});
+    //   res.end(twiml.toString());
+    // } else if (req.body.Body === "Blue" || "blue") {
+    //   // twiml.message('Color Blue!');
+    //   message.body('Color Blue!');
+    //   message.media('https://www.colorcombos.com/images/colors/336699.png');
+    //   res.writeHead(200, {'Content-Type': 'text/xml'});
+    //   res.end(twiml.toString());
+    // } else if (req.body.Body === "Green" || "green") {
+    //   // twiml.message('Color Green!');
+    //   message.body('Color Green!');
+    //   message.media('https://www.colorcombos.com/images/colors/5BC236.png');
+    //   res.writeHead(200, {'Content-Type': 'text/xml'});
+    //   res.end(twiml.toString());
+    // }
   
   });
   
