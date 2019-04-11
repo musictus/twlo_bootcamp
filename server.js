@@ -52,16 +52,16 @@ app.post('/', (req, res) => {
     axios.get(url).then(
       res => {
         message.body(
-          res.companyName + 
-          "\nLatest Price: " + res.latestPrice +
-          "\nToday's High: " + res.high +
-          "\nToday's Low: " + res.low +
-          "\nExtendedPrice: " + res.extendedPrice +
-          "\n\nMarket Cap: " + res.marketCap +
-          "\nPE Ratio: " + res.peRatio +
-          "\n52 Weeks High: " + res.week52High +
-          "\n52 Weeks Low: " + res.week52Low +
-          "\nYear to Date Change: " + res.ytdChange
+          res.data.companyName + 
+          "\nLatest Price: " + res.data.latestPrice +
+          "\nToday's High: " + res.data.high +
+          "\nToday's Low: " + res.data.low +
+          "\nExtendedPrice: " + res.data.extendedPrice +
+          "\n\nMarket Cap: " + res.data.marketCap +
+          "\nPE Ratio: " + res.data.peRatio +
+          "\n52 Weeks High: " + res.data.week52High +
+          "\n52 Weeks Low: " + res.data.week52Low +
+          "\nYear to Date Change: " + res.data.ytdChange
           );
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
