@@ -33,7 +33,7 @@ app.post('/', (req, res) => {
 
   client.messages
     .create({
-        body: 'Text your stock symbol (i.e. AAPL or aapl)',
+        body: 'Thanks for signing up! Text your stock symbol to get started (i.e. AAPL or aapl)',
         from: '+19292055493',
         to: '+1' + theNumber
     })
@@ -47,15 +47,15 @@ app.post('/', (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
     
-    let stock = ""
-    let url = ""
-    let stockQuote = ""
+    // let stock = ""
+    // let url = ""
+    // let stockQuote = ""
     
-    const textResponse = req.body.Body;
+    let textResponse = req.body.Body;
     // console.log("before: ", textResponse)
-    stock = textResponse.trim().toLowerCase();
+    let stock = textResponse.trim().toLowerCase();
     // console.log("after: ", stock)
-    url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
+    let url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
 
     axios.get(url).then(
@@ -63,7 +63,7 @@ app.post('/', (req, res) => {
         // console.log("testing", response.data)
         // console.log("testing one", response.data.latestPrice)
   
-        stockQuote = 
+         let stockQuote = 
           response.data.companyName + 
           "\nLatest Price: " + response.data.latestPrice +
           "\nToday's High: " + response.data.high +
@@ -74,7 +74,8 @@ app.post('/', (req, res) => {
           "\n52 Weeks High: " + response.data.week52High +
           "\n52 Weeks Low: " + response.data.week52Low +
           "\nYear to Date Change: " + response.data.ytdChange;
-  
+        
+          message.body(stockQuote);
       }
     ).catch(err => {
       console.log(err);
@@ -82,8 +83,6 @@ app.post('/', (req, res) => {
       res.status(500).send(err);
     });
 
-    message.body(stockQuote);
-    // runStockApi()
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
 
@@ -110,6 +109,7 @@ app.post('/', (req, res) => {
     // }
   
   });
+
 
   // function runStockApi() {
 
