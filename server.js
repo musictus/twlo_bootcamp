@@ -47,13 +47,13 @@ app.post('/', (req, res) => {
     if (req.body.Body === "Red" || "red") {
       // twiml.message('Color Red!');
       message.body('Color Red!');
-      message.media('https://www.colorcombos.com/images/colors/FF0000');
+      message.media('https://www.colorcombos.com/images/colors/FF0000.png');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     } else if (req.body.Body === "Blue" || "blue") {
       // twiml.message('Color Blue!');
       message.body('Color Blue!');
-      message.media('https://www.colorcombos.com/images/colors/336699');
+      message.media('https://www.colorcombos.com/images/colors/336699.png');
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     } else if (req.body.Body === "Green" || "green") {
