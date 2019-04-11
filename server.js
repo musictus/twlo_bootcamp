@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
     
     // let stock = ""
     // let url = ""
-    let stockQuote = ""
+    const stockQuote = ""
     
     const textResponse = req.body.Body;
     // console.log("before: ", textResponse)
@@ -75,7 +75,7 @@ app.post('/', (req, res) => {
           "\n52 Weeks Low: " + response.data.week52Low +
           "\nYear to Date Change: " + response.data.ytdChange;
         
-          message.body(stockQuote);
+          // message.body(stockQuote);
           console.log("quote", stockQuote)
       }
     ).catch(err => {
