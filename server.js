@@ -92,16 +92,16 @@ let stockQuote = ""
         // console.log("testing one", response.data.latestPrice)
   
         stockQuote = 
-          response.data.companyName + 
-          "\nLatest Price: " + response.data.latestPrice +
-          "\nToday's High: " + response.data.high +
-          "\nToday's Low: " + response.data.low +
-          "\nExtendedPrice: " + response.data.extendedPrice +
-          "\nMarket Cap: " + response.data.marketCap +
-          "\nPE Ratio: " + response.data.peRatio +
-          "\n52 Weeks High: " + response.data.week52High +
-          "\n52 Weeks Low: " + response.data.week52Low +
-          "\nYear to Date Change: " + response.data.ytdChange;
+          response.data.companyName + " " + 
+          "Latest Price: " + response.data.latestPrice + "; " +
+          "Today's High: " + response.data.high + "; " +
+          "Today's Low: " + response.data.low + "; " +
+          "ExtendedPrice: " + response.data.extendedPrice + "; " +
+          "Market Cap: " + response.data.marketCap + "; " +
+          "PE Ratio: " + response.data.peRatio + "; " +
+          "52 Weeks High: " + response.data.week52High + "; " +
+          "52 Weeks Low: " + response.data.week52Low + "; " +
+          "Year to Date Change: " + response.data.ytdChange;
   
       }
     ).catch(err => {
