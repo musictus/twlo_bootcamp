@@ -51,11 +51,11 @@ app.post('/', (req, res) => {
     // let url = ""
     // let stockQuote = ""
     
-    let textResponse = req.body.Body;
+    const textResponse = req.body.Body;
     // console.log("before: ", textResponse)
-    let stock = textResponse.trim().toLowerCase();
+    const stock = textResponse.trim().toLowerCase();
     // console.log("after: ", stock)
-    let url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
+    const url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
 
     axios.get(url).then(
@@ -63,7 +63,7 @@ app.post('/', (req, res) => {
         // console.log("testing", response.data)
         // console.log("testing one", response.data.latestPrice)
   
-         let stockQuote = 
+         const stockQuote = 
           response.data.companyName + 
           "\nLatest Price: " + response.data.latestPrice +
           "\nToday's High: " + response.data.high +
