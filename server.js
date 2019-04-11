@@ -43,7 +43,7 @@ app.post('/', (req, res) => {
 // Receive Message
   app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
-    // const message = twiml.message();
+    const message = twiml.message();
     
     const textResponse = req.body.Body;
     console.log("before: ", textResponse)
@@ -55,22 +55,27 @@ app.post('/', (req, res) => {
       response => {
         console.log("testing", response.data)
         console.log("testing one", response.data.latestPrice)
-        let stockQuotes = response.data.companyName + 
-        "\nLatest Price: " + response.data.latestPrice +
-        "\nToday's High: " + response.data.high +
-        "\nToday's Low: " + response.data.low +
-        "\nExtendedPrice: " + response.data.extendedPrice +
-        "\n\nMarket Cap: " + response.data.marketCap +
-        "\nPE Ratio: " + response.data.peRatio +
-        "\n52 Weeks High: " + response.data.week52High +
-        "\n52 Weeks Low: " + response.data.week52Low +
-        "\nYear to Date Change: " + response.data.ytdChange;
+
+        twiml.message(
+          response.data.companyName + 
+          "\nLatest Price: " + response.data.latestPrice +
+          "\nToday's High: " + response.data.high +
+          "\nToday's Low: " + response.data.low +
+          "\nExtendedPrice: " + response.data.extendedPrice +
+          "\n\nMarket Cap: " + response.data.marketCap +
+          "\nPE Ratio: " + response.data.peRatio +
+          "\n52 Weeks High: " + response.data.week52High +
+          "\n52 Weeks Low: " + response.data.week52Low +
+          "\nYear to Date Change: " + response.data.ytdChange
+        );
+
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(twiml.toString());
+
       }
     );
 
-    twiml.message(stockQuotes);
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
+
 
 
     // if (req.body.Body === "Red" || "red") {
