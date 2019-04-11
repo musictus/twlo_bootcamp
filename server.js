@@ -83,7 +83,7 @@ app.post('/', (req, res) => {
     });
 
     message.body(stockQuote);
-    runStockApi()
+    // runStockApi()
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
 
