@@ -52,20 +52,20 @@ app.post('/', (req, res) => {
     const url = "https://cloud.iexapis.com/beta/stock/" + stock + "/quote?token=pk_8996522f9079466b8365fb53fa63d9f5"
 
     axios.get(url).then(
-      res => {
-        console.log("testing", res.data)
-        console.log("testing one", res.data.latestPrice)
+      response => {
+        console.log("testing", response.data)
+        console.log("testing one", response.data.latestPrice)
         twiml.message(
-          res.data.companyName + 
-          "\nLatest Price: " + res.data.latestPrice +
-          "\nToday's High: " + res.data.high +
-          "\nToday's Low: " + res.data.low +
-          "\nExtendedPrice: " + res.data.extendedPrice +
-          "\n\nMarket Cap: " + res.data.marketCap +
-          "\nPE Ratio: " + res.data.peRatio +
-          "\n52 Weeks High: " + res.data.week52High +
-          "\n52 Weeks Low: " + res.data.week52Low +
-          "\nYear to Date Change: " + res.data.ytdChange
+          response.data.companyName + 
+          "\nLatest Price: " + response.data.latestPrice +
+          "\nToday's High: " + response.data.high +
+          "\nToday's Low: " + response.data.low +
+          "\nExtendedPrice: " + response.data.extendedPrice +
+          "\n\nMarket Cap: " + response.data.marketCap +
+          "\nPE Ratio: " + response.data.peRatio +
+          "\n52 Weeks High: " + response.data.week52High +
+          "\n52 Weeks Low: " + response.data.week52Low +
+          "\nYear to Date Change: " + response.data.ytdChange
           );
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
