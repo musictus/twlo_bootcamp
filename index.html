@@ -34,7 +34,6 @@
 
     <!-- Optional JavaScript -->
     <script type="text/javascript">
-        // QUESTION: What is this code doing?
         $("#button-click").on("click", function(event) {
             event.preventDefault();
             const inputPhone = $("#exampleInputPhone").val().trim();
@@ -44,7 +43,6 @@
           const newPhone = inputPhone.replace(/[^\d]/g, '');
           console.log("new number", newPhone);
     
-          // QUESTION: What does $.get do? What are the parameters it is expecting?
           $.post("/", {'number': newPhone})
             .then(function(data) {
             console.log(data);
